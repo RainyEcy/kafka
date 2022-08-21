@@ -9,7 +9,7 @@ import org.apache.kafka.common.serialization.StringSerializer;
 import java.util.Properties;
 
 /**
- *
+ * Producer 生产者
  */
 @Slf4j
 public class Producer {
