@@ -34,7 +34,7 @@ public class CompanyProducer {
         // init kafkaProducer
         try (KafkaProducer<String, Company> kafkaProducer = new KafkaProducer<>(properties)) {
             kafkaProducer.send(producerRecord, (metadata, exception) -> {
-                log.info(metadata.toString());
+                System.out.println("Producer Callback : " + metadata.toString());
             });
         }
     }
