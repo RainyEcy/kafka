@@ -1,4 +1,4 @@
-package chapter2;
+package chapter2.producer;
 
 import com.alibaba.fastjson.JSON;
 import org.apache.kafka.common.serialization.Serializer;

@@ -1,4 +1,4 @@
-package chapter2;
+package chapter2.producer;
 
 import org.apache.kafka.clients.producer.Partitioner;
 import org.apache.kafka.common.Cluster;
