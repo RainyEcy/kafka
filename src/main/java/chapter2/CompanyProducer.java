@@ -9,9 +9,8 @@ import org.apache.kafka.common.serialization.StringSerializer;
 import java.util.Properties;
 
 @Slf4j
-public class Producer {
+public class CompanyProducer {
 
-    public static final String CHAPTER_2 = "hello,chapter2";
     public static final String TOPIC_DEMO = "topic-demo";
     public static final String BROKER_LIST = "10.211.55.21:9092";
 
@@ -22,18 +21,21 @@ public class Producer {
         // init Properties
         Properties properties = new Properties();
         properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
-        properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, CompanySerializer.class.getName());
         properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, BROKER_LIST);
+        // init Serializer
+        properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, CompanySerializer.class.getName());
 
+        // init Partitional
+        properties.put(ProducerConfig.PARTITIONER_CLASS_CONFIG, CompanyPartitional.class.getName());
+
+        // init interceptorS
+        properties.put(ProducerConfig.INTERCEPTOR_CLASSES_CONFIG, CompanyFirstInterceptor.class.getName() + "," + CompanySecondInterceptor.class.getName());
 
         // init kafkaProducer
         try (KafkaProducer<String, Company> kafkaProducer = new KafkaProducer<>(properties)) {
-            int i = 0;
-            while (i++ < 5) {
-                kafkaProducer.send(producerRecord, (metadata, exception) -> {
-                    log.info(metadata.toString());
-                });
-            }
+            kafkaProducer.send(producerRecord, (metadata, exception) -> {
+                log.info(metadata.toString());
+            });
         }
     }
 }
