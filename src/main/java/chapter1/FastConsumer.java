@@ -7,8 +7,6 @@ import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.time.Duration;
 import java.util.Collections;
 import java.util.Properties;
@@ -18,7 +16,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * Consumer 消费者
  */
 @Slf4j
-public class Consumer {
+public class FastConsumer {
 
     public static final String BOOTSTRAP_SERVERS = "10.211.55.21:9092";
     public static final String GROUP_DEMO = "group-demo";

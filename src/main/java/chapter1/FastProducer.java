@@ -12,7 +12,7 @@ import java.util.Properties;
  * Producer 生产者
  */
 @Slf4j
-public class Producer {
+public class FastProducer {
 
     public static final String BROKER_LIST = "10.211.55.21:9092";
     public static final String TOPIC_DEMO = "topic-demo";
