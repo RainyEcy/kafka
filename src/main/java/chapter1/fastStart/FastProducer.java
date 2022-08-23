@@ -18,7 +18,7 @@ public class FastProducer {
     public static final String TOPIC_DEMO = "topic-demo";
 
     public static void main(String[] args) {
-        ProducerRecord<String, String> producerRecord = new ProducerRecord<>(TOPIC_DEMO, "hello,kafka!");
+        ProducerRecord<String, String> producerRecord = new ProducerRecord<>(TOPIC_DEMO, 0, null, "hello,kafka!");
 
         Properties properties = new Properties();
         properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
@@ -29,7 +29,9 @@ public class FastProducer {
         properties.put(ProducerConfig.RETRY_BACKOFF_MS_CONFIG, 1000);
 
         try (KafkaProducer<String, String> kafkaProducer = new KafkaProducer<>(properties)) {
-            kafkaProducer.send(producerRecord, (metadata, exception) -> log.info("Send Success:" + metadata.toString()));
+            for (int i = 0; i < 5; i++) {
+                kafkaProducer.send(producerRecord, (metadata, exception) -> log.info("Send Success:" + metadata.toString()));
+            }
         }
 
 
