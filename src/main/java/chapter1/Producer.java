@@ -24,6 +24,9 @@ public class Producer {
         properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, BROKER_LIST);
+        // 重试次数与间隔时间
+        properties.put(ProducerConfig.RETRIES_CONFIG, 10);
+        properties.put(ProducerConfig.RETRY_BACKOFF_MS_CONFIG, 1000);
 
         try (KafkaProducer<String, String> kafkaProducer = new KafkaProducer<>(properties)) {
             kafkaProducer.send(producerRecord, (metadata, exception) -> log.info("Send Success:" + metadata.toString()));
