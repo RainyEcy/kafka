@@ -1,17 +1,11 @@
 package chapter3.consumer;
 
-import org.apache.kafka.clients.consumer.ConsumerConfig;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.kafka.clients.consumer.ConsumerRecords;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
 import java.time.Duration;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Properties;
-import java.util.Set;
+import java.util.*;
 
 public class SeekConsumer {
 
@@ -40,11 +34,16 @@ public class SeekConsumer {
         }
         for (TopicPartition topicPartition : assignment) {
             // 自定义Seek位置
-            kafkaConsumer.seek(topicPartition, 150);
+            // kafkaConsumer.seek(topicPartition, 150);
             // Seek初始位置
             // kafkaConsumer.seekToBeginning(Collections.singletonList(topicPartition));
             // Seek末尾
             // kafkaConsumer.seekToEnd(Arrays.asList(topicPartition));
+            // Seek时间点
+            Map<TopicPartition, OffsetAndTimestamp> topicPartitionOffsetAndTimestampMap = kafkaConsumer.offsetsForTimes(Collections.singletonMap(topicPartition, System.currentTimeMillis() - 1000 * 3600));
+            OffsetAndTimestamp offsetAndTimestamp = topicPartitionOffsetAndTimestampMap.get(topicPartition);
+            kafkaConsumer.seek(topicPartition, offsetAndTimestamp.offset());
+
         }
 
         while (true) {
