@@ -29,7 +29,6 @@ public class CommitConsumer {
         try (KafkaConsumer<String, String> kafkaConsumer = new KafkaConsumer<>(properties)) {
             // assign topicPartitional 0
             kafkaConsumer.subscribe(Collections.singletonList(TOPIC_DEMO));
-            kafkaConsumer.wakeup();
 
             // poll
             while (true) {
