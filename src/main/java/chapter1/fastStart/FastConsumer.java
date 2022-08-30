@@ -24,13 +24,17 @@ public class FastConsumer {
     public static final AtomicBoolean ATOMIC_BOOLEAN = new AtomicBoolean(true);
 
     public static void main(String[] args) {
+        // 初始化消费者属性
         Properties properties = new Properties();
         properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, BOOTSTRAP_SERVERS);
         properties.put(ConsumerConfig.GROUP_ID_CONFIG, GROUP_DEMO);
 
+        // 开始消费过程
         try (KafkaConsumer<String, String> kafkaConsumer = new KafkaConsumer<>(properties)) {
+
+            // 订阅主题
             kafkaConsumer.subscribe(Collections.singletonList(TOPIC_DEMO));
 
             while (ATOMIC_BOOLEAN.get()) {
