@@ -13,6 +13,7 @@ public class CompanyProducer {
 
     public static final String TOPIC_DEMO = "topic-demo";
     public static final String BROKER_LIST = "10.211.55.21:9092";
+    public static final String COMPANY_PRODUCER = "company.producer";
 
     public static void main(String[] args) {
         // init producerRecord
@@ -22,6 +23,8 @@ public class CompanyProducer {
         Properties properties = new Properties();
         properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, BROKER_LIST);
+        properties.put(ProducerConfig.CLIENT_ID_CONFIG, COMPANY_PRODUCER);
+
         // init Serializer
         properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, CompanySerializer.class.getName());
 
