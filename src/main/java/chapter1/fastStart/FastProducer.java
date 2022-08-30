@@ -18,12 +18,15 @@ public class FastProducer {
     public static final String TOPIC_DEMO = "topic-demo";
 
     public static void main(String[] args) {
+        // 初始化消息内容
         ProducerRecord<String, String> producerRecord = new ProducerRecord<>(TOPIC_DEMO, "hello,kafka!");
 
+        // 初始化生产者属性
         Properties properties = new Properties();
         properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, BROKER_LIST);
+
         // 重试次数与间隔时间
         properties.put(ProducerConfig.RETRIES_CONFIG, 10);
         properties.put(ProducerConfig.RETRY_BACKOFF_MS_CONFIG, 1000);
