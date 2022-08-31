@@ -29,7 +29,7 @@ public class AssignConsumer {
 
         // init kafkaConsumer
         try (KafkaConsumer<String, String> kafkaConsumer = new KafkaConsumer<>(properties)) {
-            // assign topicPartitional
+            // assign TopicPartition
             List<PartitionInfo> partitionInfos = kafkaConsumer.partitionsFor(TOPIC_DEMO);
             ArrayList<TopicPartition> topicPartitions = new ArrayList<>();
             partitionInfos.forEach(partitionInfo -> topicPartitions.add(new TopicPartition(partitionInfo.topic(), partitionInfo.partition())));
